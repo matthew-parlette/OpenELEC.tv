@@ -30,3 +30,17 @@ mkdir -p $INSTALL/usr/lib
 
 mkdir -p $INSTALL/etc
   cp $PKG_BUILD/etc/sensors.conf.default $INSTALL/etc/sensors3.conf
+
+if [ "$FANCONTROL_SUPPORT" = "yes" ]; then
+  mkdir -p $INSTALL/usr/sbin
+    cp $PKG_BUILD/prog/pwm/fancontrol $INSTALL/usr/sbin
+    cp $PKG_BUILD/prog/pwm/pwmconfig $INSTALL/usr/sbin
+
+  mkdir -p $INSTALL/etc/init.d
+    #FIXME will this add rc.* links in a later step?
+    cp $PKG_DIR/prog/init/fancontrol.init $INSTALL/etc/init.d/fancontrol
+  if [ -f $PROJECT_DIR/$PROJECT/config/fancontrol* ]; then
+    #FIXME will this place the files in /storage/.config/ ??
+    cp $PROJECT_DIR/$PROJECT/config/fancontrol* $INSTALL/usr/config/
+  fi
+fi
