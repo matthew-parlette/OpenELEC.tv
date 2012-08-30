@@ -1,0 +1,42 @@
+diff -Naur lm_sensors-3.3.2.orig/prog/init/fancontrol.init lm_sensors-3.3.2/prog/init/fancontrol.init
+--- lm_sensors-3.3.2.orig/prog/init/fancontrol.init	2012-08-30 11:39:01.145902074 +0200
++++ lm_sensors-3.3.2/prog/init/fancontrol.init	2012-08-30 11:40:21.833902608 +0200
+@@ -15,7 +15,7 @@
+ # Source function library.
+ . /etc/rc.d/init.d/functions
+ 
+-FANCONTROL="/usr/local/sbin/fancontrol"
++FANCONTROL="/usr/sbin/fancontrol"
+ PIDFILE="/var/run/fancontrol.pid"
+ 
+ RETVAL=0
+diff -Naur lm_sensors-3.3.2.orig/prog/pwm/fancontrol lm_sensors-3.3.2/prog/pwm/fancontrol
+--- lm_sensors-3.3.2.orig/prog/pwm/fancontrol	2012-08-30 11:39:01.145902074 +0200
++++ lm_sensors-3.3.2/prog/pwm/fancontrol	2012-08-30 11:41:26.573901392 +0200
+@@ -263,7 +263,7 @@
+ then
+ 	LoadConfig $1
+ else
+-	LoadConfig /etc/fancontrol
++	LoadConfig /storage/.config/fancontrol
+ fi
+ 
+ # Detect path to sensors
+diff -Naur lm_sensors-3.3.2.orig/prog/pwm/pwmconfig lm_sensors-3.3.2/prog/pwm/pwmconfig
+--- lm_sensors-3.3.2.orig/prog/pwm/pwmconfig	2012-08-30 11:39:01.145902074 +0200
++++ lm_sensors-3.3.2/prog/pwm/pwmconfig	2012-08-30 11:41:52.025913464 +0200
+@@ -595,12 +595,12 @@
+ 
+ function AskPath()
+ {
+-	echo -n 'What should be the path to your fancontrol config file (/etc/fancontrol)? '
++	echo -n 'What should be the path to your fancontrol config file (/storage/.config/fancontrol)? '
+ 
+ 	read FCCONFIG
+ 	if [ "$FCCONFIG" = "" ]
+ 	then
+-		FCCONFIG="/etc/fancontrol"
++		FCCONFIG="/storage/.config/fancontrol"
+ 	fi
+ }
+ 
